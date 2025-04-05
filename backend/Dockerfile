@@ -1,13 +1,8 @@
-FROM node:16-alpine
-
-WORKDIR /app
-
+# backend/Dockerfile
+FROM node:18-alpine
+WORKDIR /usr/src/app
 COPY package*.json ./
-
 RUN npm install
-
 COPY . .
-
 EXPOSE 3000
-
-CMD ["node", "src/app.js"] 
+CMD ["node", "src/app.js"]
