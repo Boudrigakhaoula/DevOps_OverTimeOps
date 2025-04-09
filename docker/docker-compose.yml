@@ -1,11 +1,7 @@
-
 version: '3'
 services:
   backend:
-    build:
-      context: ../backend
-      dockerfile: ../docker/Dockerfile.backend
-    image: boudrigakhaoula/overtime_backend
+    image: boudrigakhaoula/overtime_backend:latest
     ports:
       - "3000:3000"
     environment:
@@ -16,12 +12,9 @@ services:
     depends_on:
       - db
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: ../docker/Dockerfile.frontend
-        image: boudrigakhaoula/overtime_frontend
+    image: boudrigakhaoula/overtime_frontend:latest
     ports:
-      - "3000:3000"
+      - "80:80"  # Changé pour éviter le conflit avec le backend
     depends_on:
       - backend
   db:
@@ -30,4 +23,7 @@ services:
       - MYSQL_ROOT_PASSWORD=
       - MYSQL_DATABASE=overtime_db
     volumes:
-      - ../database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db-data:/var/lib/mysql  # Volume persistant pour les données MySQL
+
+volumes:
+  db-data:
