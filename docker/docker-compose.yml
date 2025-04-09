@@ -14,8 +14,7 @@ services:
   frontend:
     image: boudrigakhaoula/overtime_frontend:latest
     ports:
-      - "80:5173"  # Vite utilise le port 5173 par défaut en dev
-    command: npm run dev -- --host 0.0.0.0  # Lance Vite et expose l'application
+      - "80:5173"
     depends_on:
       - backend
   db:
@@ -26,6 +25,5 @@ services:
       - MYSQL_DATABASE=overtime_db
     volumes:
       - db-data:/var/lib/mysql
-
 volumes:
   db-data:

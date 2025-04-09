@@ -3,4 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . ./
-CMD ["npm", "start"]
+# Corrige les permissions de node_modules
+RUN chmod -R 755 /app/node_modules
+# Définit la commande par défaut
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
