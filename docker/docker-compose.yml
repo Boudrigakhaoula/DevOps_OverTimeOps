@@ -14,18 +14,18 @@ services:
   frontend:
     image: boudrigakhaoula/overtime_frontend:latest
     ports:
-      - "80:80"
-      command: npm run dev
+      - "80:5173"  # Vite utilise le port 5173 par défaut en dev
+    command: npm run dev -- --host 0.0.0.0  # Lance Vite et expose l'application
     depends_on:
       - backend
   db:
     image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ROOT_PASSWORD=password123
       - MYSQL_DATABASE=overtime_db
     volumes:
       - db-data:/var/lib/mysql
-      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Fichier local sur VM2
 
 volumes:
   db-data:
