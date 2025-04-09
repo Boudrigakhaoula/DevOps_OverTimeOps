@@ -14,7 +14,7 @@ services:
   frontend:
     image: boudrigakhaoula/overtime_frontend:latest
     ports:
-      - "80:80"  # Changé pour éviter le conflit avec le backend
+      - "80:80"
     depends_on:
       - backend
   db:
@@ -23,7 +23,8 @@ services:
       - MYSQL_ROOT_PASSWORD=
       - MYSQL_DATABASE=overtime_db
     volumes:
-      - db-data:/var/lib/mysql  # Volume persistant pour les données MySQL
+      - db-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Fichier local sur VM2
 
 volumes:
   db-data:
