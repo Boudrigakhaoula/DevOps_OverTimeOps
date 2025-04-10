@@ -3,7 +3,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . ./
-# Corrige les permissions de node_modules
+# Assure que vite est installé et accessible
+RUN npm install vite --save-dev
+# Corrige les permissions
 RUN chmod -R 755 /app/node_modules
-# Définit la commande par défaut
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+# Utilise npx pour exécuter vite
+CMD ["npx", "vite", "--host", "0.0.0.0"]
